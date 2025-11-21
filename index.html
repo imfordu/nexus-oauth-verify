@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Discord Verificado - Nexus Store</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: url('https://cdn.discordapp.com/attachments/1441182767496040597/1441245020312309770/Gemini_Generated_Image_hbzifchbzifchbzi.png?ex=69211785&is=691fc605&hm=353878caf8b134db422aab65b457a18a2bad818a1ebce693900ea32341c96588&') center/cover no-repeat;
+            backdrop-filter: blur(4px);
+        }
+
+        .card {
+            width: 420px;
+            background: rgba(20, 0, 35, 0.55);
+            padding: 35px;
+            border-radius: 22px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 0 25px rgba(115, 0, 255, 0.7);
+            backdrop-filter: blur(12px);
+            animation: fadeIn 0.9s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo {
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 20px;
+            border-radius: 18px;
+            box-shadow: 0 0 18px rgba(150, 90, 255, 0.8);
+        }
+
+        h1 {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        p {
+            font-size: 15px;
+            opacity: 0.75;
+            margin-bottom: 25px;
+        }
+
+        .check {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 15px;
+            background: #8d4bff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 0 20px #8d4bff;
+            animation: pop 0.6s ease;
+        }
+
+        @keyframes pop {
+            from { transform: scale(0.4); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .check svg {
+            width: 38px;
+            fill: white;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <img class="logo" src="https://cdn.discordapp.com/icons/1441182766707376200/cea148a4465077ca91d48f509a21f2fd.png?size=2048" />
+
+        <h1>Discord Verificado</h1>
+        <p>Sua conta foi validada com sucesso. Pode fechar esta página!</p>
+
+        <div class="check">
+            <svg viewBox="0 0 24 24">
+                <path d="M20.285 6.709l-11.025 11.025-5.545-5.545 1.414-1.414 4.131 4.131 9.611-9.611z" />
+            </svg>
+        </div>
+
+        <div class="footer">Nexus Store • OAuth2</div>
+    </div>
+
+</body>
+</html>
