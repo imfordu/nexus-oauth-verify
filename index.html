@@ -42,11 +42,21 @@
             },
             animation: {
               'shimmer': 'shimmer 2s linear infinite',
+              'enter': 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              'pop': 'popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
             },
             keyframes: {
               shimmer: {
                 '0%': { transform: 'translateX(-100%)' },
                 '100%': { transform: 'translateX(100%)' },
+              },
+              fadeInUp: {
+                '0%': { opacity: 0, transform: 'translateY(20px) scale(0.95)' },
+                '100%': { opacity: 1, transform: 'translateY(0) scale(1)' },
+              },
+              popIn: {
+                '0%': { opacity: 0, transform: 'scale(0)' },
+                '100%': { opacity: 1, transform: 'scale(1)' },
               }
             }
           },
@@ -59,22 +69,205 @@
         margin: 0;
         overflow-x: hidden;
       }
+      .delay-100 { animation-delay: 100ms; }
+      .delay-200 { animation-delay: 200ms; }
+      .delay-300 { animation-delay: 300ms; }
+      .delay-400 { animation-delay: 400ms; }
+      .delay-500 { animation-delay: 500ms; }
+
+      /* Pixelated Grid Styles */
+      #pixel-grid {
+        display: grid;
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 1; /* Above background, below main content */
+        pointer-events: auto; /* Allow hover */
+      }
+      
+      .pixel-cell {
+        width: 100%;
+        height: 100%;
+        border: 0.5px solid rgba(255, 255, 255, 0.03); /* Very subtle grid lines */
+        transition: background-color 0.8s ease, border-color 0.8s ease;
+      }
+
+      .pixel-cell:hover {
+        background-color: rgba(139, 92, 246, 0.15); /* Purple tint on hover */
+        border-color: rgba(139, 92, 246, 0.2);
+        transition: 0s; /* Instant ON */
+      }
     </style>
-  <script type="importmap">
+<script type="importmap">
 {
   "imports": {
     "react": "https://aistudiocdn.com/react@^19.2.0",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
     "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
     "framer-motion": "https://aistudiocdn.com/framer-motion@^12.23.25"
   }
 }
 </script>
 <link rel="stylesheet" href="/index.css">
 </head>
-  <body>
-    <div id="root"></div>
-  <script type="module" src="/index.tsx"></script>
+<body class="min-h-screen flex flex-col items-center justify-center text-white selection:bg-purple-500 selection:text-white relative">
+
+    <!-- Background Effects (z-0) -->
+    <div class="fixed inset-0 z-0 pointer-events-none">
+        <!-- Main Image -->
+        <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('https://cdn.discordapp.com/attachments/1441534823520014510/1441536910190182442/Gemini_Generated_Image_gqgwsxgqgwsxgqgw.png?ex=692fff1d&is=692ead9d&hm=ea4cf66fcaebb6db0c7853bfb06e52c042de39c649cd73f979c12e777799d66e&');"></div>
+        
+        <!-- Blur & Dark Overlay -->
+        <div class="absolute inset-0 bg-gray-950/70 backdrop-blur-[12px]"></div>
+
+        <!-- Noise Texture -->
+        <div class="absolute inset-0 opacity-[0.04] mix-blend-overlay" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E');"></div>
+
+        <!-- Orbs -->
+        <div class="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-purple-600/20 rounded-full blur-[120px] animate-pulse"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[100px]"></div>
+    </div>
+
+    <!-- Pixelated Interactive Grid (z-1) -->
+    <div id="pixel-grid"></div>
+
+    <!-- Main Content (z-10) -->
+    <main class="relative z-10 w-full max-w-[380px] px-4 opacity-0 animate-enter pointer-events-auto">
+        
+        <div class="relative overflow-hidden rounded-[2rem] border border-white/10 bg-gray-900/60 backdrop-blur-xl shadow-2xl shadow-purple-900/20 p-8 flex flex-col items-center text-center group">
+            
+            <!-- Top Inner Glow -->
+            <div class="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-purple-500/10 to-transparent pointer-events-none"></div>
+
+            <!-- Logo Section -->
+            <div class="relative mb-8 group-hover:scale-105 transition-transform duration-500 opacity-0 animate-enter delay-100">
+                <!-- Glow behind logo -->
+                <div class="absolute inset-0 bg-purple-500/40 rounded-3xl blur-2xl opacity-50"></div>
+                
+                <div class="relative">
+                    <img 
+                        src="https://cdn.discordapp.com/attachments/1441534823520014510/1445360511465296043/b9c73481fa263250ea47141f1aafb6db.png?ex=6930105f&is=692ebedf&hm=9e3801fe4aa36d4d39f03f0422578f149692fe6210c9257a5ba3809ee10b6d86&" 
+                        alt="Nexus Store Logo" 
+                        class="w-24 h-24 rounded-3xl object-cover shadow-2xl ring-1 ring-white/20 relative z-10"
+                        loading="lazy"
+                    />
+                    
+                    <!-- Verified Badge (Shield Check) -->
+                    <div class="absolute -bottom-2 -right-2 z-20 bg-emerald-500 text-white p-1.5 rounded-full border-[3px] border-gray-900 shadow-lg opacity-0 animate-pop delay-500" title="Identidade Verificada">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/>
+                            <path d="m9 12 2 2 4-4"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Success Check Icon -->
+            <div class="mb-6 relative opacity-0 animate-enter delay-200">
+                <div class="w-14 h-14 bg-gradient-to-tr from-purple-600 to-indigo-600 rounded-2xl rotate-3 flex items-center justify-center shadow-lg shadow-purple-500/30 ring-1 ring-white/10">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 6 9 17l-5-5"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Typography -->
+            <div class="space-y-3 mb-8 w-full opacity-0 animate-enter delay-300">
+                <h1 class="text-2xl font-bold text-white tracking-tight">
+                    Autenticação Concluída
+                </h1>
+                <div class="space-y-1">
+                    <p class="text-sm text-gray-300 leading-relaxed font-light">
+                        Sua identidade foi confirmada.
+                    </p>
+                    <p class="text-sm text-gray-400 leading-relaxed font-light">
+                        Você pode retornar ao <span class="text-purple-300 font-medium">Discord</span> com segurança.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Action Button -->
+            <a 
+                href="https://discord.gg/ruCpfVqsAA" 
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group relative w-full flex items-center justify-center gap-3 px-8 py-4 bg-[#5865F2] hover:bg-[#4752C4] hover:scale-[1.02] active:scale-[0.98] rounded-xl font-semibold text-white transition-all duration-300 shadow-lg shadow-[#5865F2]/25 overflow-hidden ring-1 ring-white/10 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-[#111827] opacity-0 animate-enter delay-400"
+            >
+                <!-- Shimmer Effect -->
+                <div class="absolute inset-0 -translate-x-full group-hover:animate-shimmer bg-gradient-to-r from-transparent via-white/20 to-transparent z-10"></div>
+                
+                <span class="relative z-20 flex items-center gap-2 text-[15px]">
+                    Continuar para o Discord
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-70 group-hover:translate-x-0.5 transition-transform">
+                        <path d="M15 3h6v6"/>
+                        <path d="M10 14 21 3"/>
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                    </svg>
+                </span>
+            </a>
+
+            <!-- Footer Meta inside Card -->
+            <div class="mt-8 flex items-center gap-3 text-[10px] text-gray-500 font-medium uppercase tracking-widest opacity-0 animate-enter delay-500">
+                <span>Nexus Store</span>
+                <span class="w-1 h-1 bg-gray-600 rounded-full"></span>
+                <span>OAuth2</span>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Page Footer Security -->
+    <footer class="relative z-10 w-full py-6 pointer-events-none mt-4 opacity-0 animate-enter delay-500">
+        <div class="flex flex-col items-center justify-center space-y-2 opacity-40">
+           <div class="flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase font-light text-white">
+             <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+             </svg>
+             <span>Secure Environment • 256-bit SSL</span>
+           </div>
+        </div>
+    </footer>
+
+    <!-- Script to Generate Pixel Grid -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const gridContainer = document.getElementById('pixel-grid');
+        const cellSize = 50; // Controls the density of the grid (px)
+
+        function createGrid() {
+          gridContainer.innerHTML = ''; // Clear existing
+          
+          const width = window.innerWidth;
+          const height = window.innerHeight;
+          
+          const cols = Math.ceil(width / cellSize);
+          const rows = Math.ceil(height / cellSize);
+          
+          gridContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+          
+          const fragment = document.createDocumentFragment();
+          
+          for (let i = 0; i < cols * rows; i++) {
+            const cell = document.createElement('div');
+            cell.classList.add('pixel-cell');
+            fragment.appendChild(cell);
+          }
+          
+          gridContainer.appendChild(fragment);
+        }
+
+        createGrid();
+
+        // Re-generate grid on resize with simple debounce
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(createGrid, 200);
+        });
+      });
+    </script>
+<script type="module" src="/index.tsx"></script>
 </body>
 </html>
