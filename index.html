@@ -4,22 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Autenticação Concluída - Nexus Store</title>
-    <!-- Carrega o Tailwind CSS para estilização moderna e responsiva -->
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Configuração do Tailwind para usar a fonte Poppins, como no original -->
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
         
-        /* Define Poppins como a fonte principal e garante o fundo com efeito visual */
         body {
             font-family: 'Poppins', sans-serif;
-            /* ** NOVO: Usando o banner de fundo fornecido ** */
-            background: url('https://cdn.discordapp.com/attachments/1441534823520014510/1445360511465296043/b9c73481fa263250ea47141f1aafb6db.png?ex=6930105f&is=692ebedf&hm=9e3801fe4aa36d4d39f03f0422578f149692fe6210c9257a5ba3809ee10b6d86') center/cover no-repeat fixed;
-            /* Adiciona um filtro de desfoque e escurecimento ao fundo para melhorar a legibilidade do card */
-            filter: blur(0px); /* O desfoque visual será feito com um pseudo-elemento */
+            /* Garante que o body não tem background para o pseudo-elemento fazer o trabalho */
+            background: #111827; /* Fallback de cor escura */
         }
         
-        /* Estilo para criar o efeito de desfoque na imagem de fundo, mas manter o card nítido */
+        /* 1. Responsável pelo BACKGROUND: Imagem, Desfoque e Escurecimento. */
         body::before {
             content: '';
             position: fixed;
@@ -27,55 +24,49 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: inherit;
-            filter: blur(4px) brightness(0.7); /* Desfoque e escurecimento */
-            z-index: -1; /* Coloca atrás do conteúdo */
+            /* URL da Imagem de Fundo Otimizada (simulada) */
+            background: url('https://cdn.discordapp.com/attachments/1441534823520014510/1441536910190182442/Gemini_Generated_Image_gqgwsxgqgwsxgqgw.png?ex=692fff1d&is=692ead9d&hm=ea4cf66fcaebb6db0c7853bfb06e52c042de39c649cd73f979c12e777799d66e&') center/cover no-repeat fixed;
+            filter: blur(5px) brightness(0.6); /* Aumentei um pouco para maior contraste */
+            z-index: -1;
         }
 
-        /* Animação para o card */
+        /* 2. Animação de Entrada (Card) */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
         .card-animate {
             animation: fadeIn 0.8s ease-out forwards;
         }
 
-        /* Animação de pop para o ícone de check */
+        /* 3. Animação de Pop (Checkmark) - Ajustada para um pop mais rápido e intenso */
         @keyframes pop {
             0% { transform: scale(0.5); opacity: 0; }
-            80% { transform: scale(1.1); opacity: 1; }
+            70% { transform: scale(1.15); opacity: 1; }
             100% { transform: scale(1); opacity: 1; }
         }
-
         .check-animate {
-            animation: pop 0.6s ease-out forwards;
+            animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-4 text-white relative">
 
-    <!-- Card Principal Centrado -->
-    <div class="card-animate w-full max-w-sm bg-indigo-900/40 backdrop-blur-xl p-8 md:p-10 rounded-2xl text-center shadow-2xl shadow-purple-800/80 border border-purple-700/60 z-10">
+    <main class="card-animate w-full max-w-sm bg-indigo-900/40 backdrop-blur-xl p-8 md:p-10 rounded-2xl text-center shadow-2xl shadow-purple-800/80 border border-purple-700/60 z-10">
         
-        <!-- Logo (Imagem do Servidor) -->
-        <!-- ** NOVO: Usando a imagem do servidor fornecida ** -->
         <img 
             class="w-24 h-24 mx-auto mb-6 rounded-2xl object-cover shadow-lg shadow-purple-500/70"
-            src="https://cdn.discordapp.com/attachments/1441534823520014510/1445360511465296043/b9c73481fa263250ea47141f1aafb6db.png?ex=6930105f&is=692ebedf&hm=9e3801fe4aa36d4d39f03f0422578f149692fe6210c9257a5ba3809ee10b6d86"
+            src="https://cdn.discordapp.com/attachments/1441534823520014510/1445360511465296043/b9c73481fa263250ea47141f1aafb6db.png?ex=6930105f&is=692ebedf&hm=9e3801fe4aa36d4d39f03f0422578f149692fe6210c9257a5ba3809ee10b6d86&"
             alt="Logo da Nexus Store"
+            loading="lazy"
         />
 
-        <!-- Ícone de Verificação -->
         <div class="check-animate w-16 h-16 mx-auto mb-5 bg-purple-600 rounded-full flex items-center justify-center shadow-2xl shadow-purple-500/60">
-            <!-- Ícone SVG de Checkmark (Lucide Icon style) -->
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-white">
                 <path d="M20 6 9 17l-5-5"/>
             </svg>
         </div>
 
-        <!-- Título e Mensagem -->
         <h1 class="text-3xl font-extrabold text-white mb-2">
             Autenticação Concluída
         </h1>
@@ -83,20 +74,21 @@
             Sua identidade foi verificada com sucesso. Agora, pode retornar ao Discord.
         </p>
 
-        <!-- Botão para Voltar ao Discord -->
         <a 
             class="inline-block px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition duration-200 ease-in-out shadow-lg shadow-blue-500/50 hover:shadow-xl hover:shadow-blue-500/70 text-lg" 
             href="https://discord.gg/ruCpfVqsAA" 
             target="_blank"
+            rel="noopener noreferrer"
         >
             Continuar para o Discord
         </a>
 
-        <!-- Rodapé -->
-        <div class="mt-8 text-xs text-gray-400 opacity-75">
-            Nexus Store • OAuth2
-        </div>
-    </div>
+        <footer>
+             <div class="mt-8 text-xs text-gray-400 opacity-75">
+                Nexus Store • OAuth2
+            </div>
+        </footer>
+    </main>
 
 </body>
 </html>
